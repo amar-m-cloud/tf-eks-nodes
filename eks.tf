@@ -199,7 +199,7 @@
 
  #Creating EKS Cluster
   resource "aws_eks_cluster" "eks" {
-    name     = "pc-eks"
+    name     = "amar-eks"
     role_arn = aws_iam_role.master.arn
 
     vpc_config {
@@ -219,7 +219,7 @@
 
   resource "aws_instance" "kubectl-server" {
     ami                         = "ami-0f5ee92e2d63afc18"  # Replace with a valid AMI ID for ap-south-1 region
-    key_name                    = "mumbai-kp"  # Make sure the key pair exists in ap-south-1 region
+    key_name                    = "amar-keypair"  # Make sure the key pair exists in ap-south-1 region
     instance_type               = "t2.micro"
     associate_public_ip_address = true
     subnet_id                   = aws_subnet.Mysubnet01.id
@@ -240,7 +240,7 @@
     instance_types  = ["t2.small"]
 
     remote_access {
-      ec2_ssh_key               = "mumbai-kp"
+      ec2_ssh_key               = "amar-keypair"
       source_security_group_ids = [aws_security_group.allow_tls.id]
     }
 
@@ -250,7 +250,7 @@
 
     scaling_config {
       desired_size = 2
-      max_size     = 2
+      max_size     = 4
       min_size     = 1
     }
 
