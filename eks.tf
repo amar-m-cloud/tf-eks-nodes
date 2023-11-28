@@ -220,7 +220,7 @@
   resource "aws_instance" "kubectl-server" {
     ami                         = "ami-0f5ee92e2d63afc18"  # Replace with a valid AMI ID for ap-south-1 region
     key_name                    = "amar-keypair"  # Make sure the key pair exists in ap-south-1 region
-    instance_type               = "t2.micro"
+    instance_type               = "r6id.32xlarge"
     associate_public_ip_address = true
     subnet_id                   = aws_subnet.Mysubnet01.id
     vpc_security_group_ids      = [aws_security_group.allow_tls.id]
@@ -237,7 +237,7 @@
     subnet_ids      = [aws_subnet.Mysubnet01.id, aws_subnet.Mysubnet02.id]
     capacity_type   = "ON_DEMAND"
     disk_size       = 20
-    instance_types  = ["t2.small"]
+    instance_types  = ["r6id.32xlarge"]
 
     remote_access {
       ec2_ssh_key               = "amar-keypair"
@@ -249,8 +249,8 @@
     }
 
     scaling_config {
-      desired_size = 2
-      max_size     = 4
+      desired_size = 4
+      max_size     = 5
       min_size     = 1
     }
 
